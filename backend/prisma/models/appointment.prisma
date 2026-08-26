@@ -1,0 +1,196 @@
+model Appointment {
+  id String @id @default(cuid())
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  date DateTime
+  time String
+
+  status AppointmentStatus @default(SCHEDULED)
+
+  type     String?
+  notes    String?
+  symptoms Json
+
+  medicalRecord MedicalRecord?
+
+  prescription String?
+  diagnosis    String?
+  followUpDate DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bills Bill[] @relation("AppointmentBills")
+
+  @@index([patientId])
+  @@index([doctorId])
+  @@index([date])
+  @@index([status])
+  @@map("appointments")
+}
+
+model MedicalRecord {
+  id            String       @id @default(cuid())
+  patientId     String
+  patient       Patient      @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctorId      String
+  doctor        Doctor       @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  appointmentId String?      @unique
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id], onDelete: SetNull)
+
+  diagnosis     String?
+  diagnosisDate DateTime?
+  symptoms      Json
+  notes         String?
+
+  prescriptions Prescription[]
+  reports       Report[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("medical_records")
+}
+
+model Prescription {
+  id              String        @id @default(cuid())
+  medicalRecordId String
+  medicalRecord   MedicalRecord @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)
+
+  medication     String
+  dosage         String
+  frequency      String
+  duration       String
+  instructions   String?
+  prescribedDate DateTime           @default(now())
+  expiryDate     DateTime?
+  refills        Int                @default(0)
+  status         PrescriptionStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("prescriptions")
+}
+
+model Report {
+  id              String        @id @default(cuid())
+  medicalRecordId String
+  medicalRecord   MedicalRecord @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)
+
+  name    String
+  type    ReportType
+  date    DateTime     @default(now())
+  result  String?
+  fileUrl String?
+  notes   String?
+  status  ReportStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reports")
+}
+
+model Bill {
+  id            String       @id @default(cuid())
+  patientId     String
+  patient       Patient      @relation("PatientBills", fields: [patientId], references: [id], onDelete: Cascade)
+  appointmentId String?
+  appointment   Appointment? @relation("AppointmentBills", fields: [appointmentId], references: [id], onDelete: SetNull)
+
+  billNumber    String @unique
+  invoiceNumber String @unique
+
+  items       Json
+  subtotal    Float
+  tax         Float @default(0)
+  discount    Float @default(0)
+  totalAmount Float
+
+  status        BillStatus     @default(UNPAID)
+  paymentMethod PaymentMethod?
+  paymentDate   DateTime?
+
+  notes String?
+
+  generatedBy String
+  generatedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  payments Payment[]
+
+  @@map("bills")
+}
+
+model Payment {
+  id     String @id @default(cuid())
+  billId String
+  bill   Bill   @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  amount        Float
+  method        PaymentMethod
+  transactionId String?
+  paymentDate   DateTime      @default(now())
+  notes         String?
+
+  status       PaymentStatus @default(COMPLETED)
+  refundedAt   DateTime?
+  refundReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("payments")
+}
+
+enum BillStatus {
+  UNPAID
+  PAID
+  PARTIALLY_PAID
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH
+  KHALTI
+  ESEWA
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PrescriptionStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+  CANCELLED
+}
+
+enum ReportType {
+  LAB_REPORT
+  X_RAY
+  MRI
+  CT_SCAN
+  ULTRASOUND
+  BLOOD_TEST
+  URINE_TEST
+  ECG
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}

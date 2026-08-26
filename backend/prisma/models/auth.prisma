@@ -1,0 +1,89 @@
+// =========================
+// REFRESH TOKEN
+// =========================
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @db.Text
+  expiresAt DateTime
+  isRevoked Boolean  @default(false)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}
+
+// =========================
+// SESSION
+// =========================
+
+model Session {
+  id           String        @id @default(cuid())
+  sessionId    String        @unique
+  status       SessionStatus @default(ACTIVE)
+  ipAddress    String?
+  userAgent    String?
+  expiresAt    DateTime
+  lastActiveAt DateTime      @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+// =========================
+// OTP
+// =========================
+
+model OTP {
+  id        String   @id @default(cuid())
+  code      String
+  type      OTPType
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  attempts  Int      @default(0)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("otps")
+}
+
+// =========================
+// AUDIT LOG
+// =========================
+
+model AuditLog {
+  id          String      @id @default(cuid())
+  action      AuditAction
+  description String?     @db.Text
+  ipAddress   String?
+  userAgent   String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}

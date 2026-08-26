@@ -1,5 +1,5 @@
 import prisma from "../config/database.js"
-import { MESSAGES } from "../constans/messages";
+import { MESSAGES } from "../constans/messages.js";
 
 
 

@@ -1,0 +1,33 @@
+model Patient {
+  id     String @id @default(cuid())
+  userId String @unique
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  dateOfBirth      DateTime?
+  gender           Gender?
+  bloodGroup       String?
+  allergies        Json
+  medicalHistory   Json?
+  emergencyContact Json?
+
+  address String?
+  city    String?
+  state   String?
+  country String?
+  zipCode String?
+
+  insuranceProvider String?
+  insuranceNumber   String?
+
+  documents Json?
+
+  medicalRecords MedicalRecord[]
+  appointments   Appointment[]
+  bills          Bill[]          @relation("PatientBills")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("patients")
+}

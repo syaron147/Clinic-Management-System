@@ -1,0 +1,45 @@
+enum Role {
+  PATIENT
+  DOCTOR
+  ADMIN
+  RECEPTIONIST
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+  NO_SHOW
+}
+
+enum OTPType {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+  LOGIN
+  PHONE_VERIFICATION
+}
+
+enum AuditAction {
+  LOGIN
+  LOGOUT
+  REGISTER
+  CREATE
+  UPDATE
+  DELETE
+  PASSWORD_CHANGE
+  PASSWORD_RESET
+}
+
+enum SessionStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+}

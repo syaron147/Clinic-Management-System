@@ -1,5 +1,5 @@
 import { ZodError } from 'zod';
-import { STATUS_CODES } from '../constants/statusCodes.js';
+import { STATUS_CODES } from '../constans/statusCodes.js';
 
 export const successResponse = (res, data, message = 'Success', statusCode = STATUS_CODES.OK) => {
   return res.status(statusCode).json({
