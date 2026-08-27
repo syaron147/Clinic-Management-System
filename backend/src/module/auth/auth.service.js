@@ -1,5 +1,5 @@
 import prisma from "../../config/database.js";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../../generated/prisma/client.ts";
 import { hashPassword, comparePassword } from "../../utils/hash.js";
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "../../utils/jwt.js";
 import { resendOtp, sendOtp, verifyOtp } from "../../utils/otp.js";
