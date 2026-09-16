@@ -1,27 +1,32 @@
 model User {
-  id              String    @id @default(cuid())
-  email           String    @unique
+  id              String   @id @default(cuid())
+  email           String   @unique
   password        String
   fullName        String
-  phone           String?   @unique
+  phone           String?
   avatar          String?
-  role            Role      @default(PATIENT)
-  isActive        Boolean   @default(true)
-  isEmailVerified Boolean   @default(false)
+  role            Role     @default(PATIENT)
+  isActive        Boolean  @default(true)
+  isEmailVerified Boolean  @default(false)
   lastLoginAt     DateTime?
   lastLoginIP     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  refreshTokens    RefreshToken[]
+  sessions         Session[]
+  auditLogs        AuditLog[]
+  otps             OTP[]
 
-  refreshTokens RefreshToken[]
-  sessions      Session[]
-  auditLogs     AuditLog[]
-  otps          OTP[]
+  patient          Patient?
+  doctor           Doctor?
+  departmentHead   Department? @relation("DepartmentHead")
 
-  patient           Patient?
-  doctor            Doctor?
-  headedDepartments Department[] @relation("DepartmentHead")
+  sentMessages     ChatMessage[] @relation("SentMessages")
+  receivedMessages ChatMessage[] @relation("ReceivedMessages")
+  notifications    Notification[]
+
+  processedPayments Payment[] @relation("PaymentProcessor")
 
   @@map("users")
 }

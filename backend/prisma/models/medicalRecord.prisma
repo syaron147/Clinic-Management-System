@@ -1,1 +1,70 @@
+model MedicalRecord {
+  id            String   @id @default(cuid())
 
+  patientId     String
+  patient       Patient  @relation("PatientMedicalRecords", fields: [patientId], references: [id], onDelete: Cascade)
+
+  doctorId      String
+  doctor        Doctor   @relation("DoctorMedicalRecords", fields: [doctorId], references: [id], onDelete: Cascade)
+
+  appointmentId String?
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id], onDelete: SetNull)
+
+  diagnosis     String?
+  diagnosisDate DateTime?
+  symptoms      Json?
+  notes         String?
+
+  prescriptions Prescription[]
+  reports       Report[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("medical_records")
+}
+
+
+model Prescription {
+  id              String   @id @default(cuid())
+
+  medicalRecordId String
+  medicalRecord   MedicalRecord @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)
+
+  medication      String
+  dosage          String
+  frequency       String
+  duration        String
+  instructions    String?
+
+  prescribedDate  DateTime @default(now())
+  expiryDate      DateTime?
+  refills         Int      @default(0)
+  status          PrescriptionStatus @default(ACTIVE)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("prescriptions")
+}
+
+
+model Report {
+  id              String   @id @default(cuid())
+
+  medicalRecordId String
+  medicalRecord   MedicalRecord @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)
+
+  name            String
+  type            ReportType
+  date            DateTime @default(now())
+  result          String?
+  fileUrl         String?
+  notes           String?
+  status          ReportStatus @default(PENDING)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("reports")
+}

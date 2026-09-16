@@ -1,15 +1,17 @@
 enum Role {
-  PATIENT
-  DOCTOR
   ADMIN
+  DOCTOR
+  PATIENT
   RECEPTIONIST
 }
+
 
 enum Gender {
   MALE
   FEMALE
   OTHER
 }
+
 
 enum AppointmentStatus {
   SCHEDULED
@@ -20,26 +22,60 @@ enum AppointmentStatus {
   NO_SHOW
 }
 
+
+enum PrescriptionStatus {
+  ACTIVE
+  COMPLETED
+  EXPIRED
+  CANCELLED
+}
+
+
+enum ReportType {
+  LAB_REPORT
+  X_RAY
+  MRI
+  CT_SCAN
+  ULTRASOUND
+  BLOOD_TEST
+  URINE_TEST
+  ECG
+  OTHER
+}
+
+
+enum ReportStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+
+enum BillStatus {
+  UNPAID
+  PAID
+  PARTIALLY_PAID
+  CANCELLED
+  REFUNDED
+}
+
+
+enum PaymentMethod {
+  ESEWA
+  KHALTI
+  CASH
+}
+
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+
 enum OTPType {
   EMAIL_VERIFICATION
   PASSWORD_RESET
-  LOGIN
-  PHONE_VERIFICATION
-}
-
-enum AuditAction {
-  LOGIN
-  LOGOUT
-  REGISTER
-  CREATE
-  UPDATE
-  DELETE
-  PASSWORD_CHANGE
-  PASSWORD_RESET
-}
-
-enum SessionStatus {
-  ACTIVE
-  EXPIRED
-  REVOKED
 }

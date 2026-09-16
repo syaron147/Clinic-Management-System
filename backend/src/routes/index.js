@@ -19,6 +19,12 @@ router.get("/health",(req,res)=>{
         success:true
     })
 })
+router.get("/test",(req,res)=>{
+    return res.json({
+        message:"test successfull",
+        success:true
+    })
+})
 router.use("/auth",authRoutes)
 router.use("/admin",adminRoutes)
 router.use("/patient",patientRoutes)
