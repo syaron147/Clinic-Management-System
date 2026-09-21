@@ -52,17 +52,19 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Appointment: 'Appointment',
-  MedicalRecord: 'MedicalRecord',
-  Prescription: 'Prescription',
-  Report: 'Report',
-  Bill: 'Bill',
-  Payment: 'Payment',
   RefreshToken: 'RefreshToken',
   Session: 'Session',
   OTP: 'OTP',
   AuditLog: 'AuditLog',
+  Bill: 'Bill',
+  Payment: 'Payment',
   Department: 'Department',
   Doctor: 'Doctor',
+  MedicalRecord: 'MedicalRecord',
+  Prescription: 'Prescription',
+  Report: 'Report',
+  ChatMessage: 'ChatMessage',
+  Notification: 'Notification',
   Patient: 'Patient',
   User: 'User'
 } as const
@@ -101,6 +103,146 @@ export const AppointmentScalarFieldEnum = {
 } as const
 
 export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
+export const RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  userId: 'userId',
+  userAgent: 'userAgent',
+  ipAddress: 'ipAddress',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  revoked: 'revoked',
+  revokedAt: 'revokedAt'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  userAgent: 'userAgent',
+  ipAddress: 'ipAddress',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  lastActivity: 'lastActivity',
+  isActive: 'isActive'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const OTPScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  otp: 'otp',
+  type: 'type',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  isUsed: 'isUsed',
+  userId: 'userId'
+} as const
+
+export type OTPScalarFieldEnum = (typeof OTPScalarFieldEnum)[keyof typeof OTPScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  resource: 'resource',
+  details: 'details',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+export const BillScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  appointmentId: 'appointmentId',
+  billNumber: 'billNumber',
+  invoiceNumber: 'invoiceNumber',
+  items: 'items',
+  subtotal: 'subtotal',
+  tax: 'tax',
+  discount: 'discount',
+  totalAmount: 'totalAmount',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
+  paymentDate: 'paymentDate',
+  notes: 'notes',
+  generatedBy: 'generatedBy',
+  generatedAt: 'generatedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BillScalarFieldEnum = (typeof BillScalarFieldEnum)[keyof typeof BillScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  billId: 'billId',
+  appointmentId: 'appointmentId',
+  amount: 'amount',
+  method: 'method',
+  transactionId: 'transactionId',
+  paymentDate: 'paymentDate',
+  notes: 'notes',
+  status: 'status',
+  refundedAt: 'refundedAt',
+  refundReason: 'refundReason',
+  processedBy: 'processedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const DepartmentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  headDoctorId: 'headDoctorId',
+  hospital: 'hospital',
+  phone: 'phone',
+  email: 'email',
+  location: 'location',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
+
+
+export const DoctorScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  departmentId: 'departmentId',
+  specialization: 'specialization',
+  licenseNumber: 'licenseNumber',
+  qualifications: 'qualifications',
+  experience: 'experience',
+  hospital: 'hospital',
+  consultationFee: 'consultationFee',
+  availableDays: 'availableDays',
+  bio: 'bio',
+  rating: 'rating',
+  totalReviews: 'totalReviews',
+  certificates: 'certificates',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DoctorScalarFieldEnum = (typeof DoctorScalarFieldEnum)[keyof typeof DoctorScalarFieldEnum]
 
 
 export const MedicalRecordScalarFieldEnum = {
@@ -155,140 +297,35 @@ export const ReportScalarFieldEnum = {
 export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
-export const BillScalarFieldEnum = {
+export const ChatMessageScalarFieldEnum = {
   id: 'id',
-  patientId: 'patientId',
-  appointmentId: 'appointmentId',
-  billNumber: 'billNumber',
-  invoiceNumber: 'invoiceNumber',
-  items: 'items',
-  subtotal: 'subtotal',
-  tax: 'tax',
-  discount: 'discount',
-  totalAmount: 'totalAmount',
-  status: 'status',
-  paymentMethod: 'paymentMethod',
-  paymentDate: 'paymentDate',
-  notes: 'notes',
-  generatedBy: 'generatedBy',
-  generatedAt: 'generatedAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type BillScalarFieldEnum = (typeof BillScalarFieldEnum)[keyof typeof BillScalarFieldEnum]
-
-
-export const PaymentScalarFieldEnum = {
-  id: 'id',
-  billId: 'billId',
-  amount: 'amount',
-  method: 'method',
-  transactionId: 'transactionId',
-  paymentDate: 'paymentDate',
-  notes: 'notes',
-  status: 'status',
-  refundedAt: 'refundedAt',
-  refundReason: 'refundReason',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
-
-
-export const RefreshTokenScalarFieldEnum = {
-  id: 'id',
-  token: 'token',
-  expiresAt: 'expiresAt',
-  isRevoked: 'isRevoked',
-  userId: 'userId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
-
-
-export const SessionScalarFieldEnum = {
-  id: 'id',
-  sessionId: 'sessionId',
-  status: 'status',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
-  expiresAt: 'expiresAt',
-  lastActiveAt: 'lastActiveAt',
-  userId: 'userId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
-
-
-export const OTPScalarFieldEnum = {
-  id: 'id',
-  code: 'code',
+  senderId: 'senderId',
+  recipientId: 'recipientId',
+  message: 'message',
   type: 'type',
-  expiresAt: 'expiresAt',
-  verified: 'verified',
-  attempts: 'attempts',
-  userId: 'userId',
+  read: 'read',
+  readAt: 'readAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type OTPScalarFieldEnum = (typeof OTPScalarFieldEnum)[keyof typeof OTPScalarFieldEnum]
+export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
 
 
-export const AuditLogScalarFieldEnum = {
+export const NotificationScalarFieldEnum = {
   id: 'id',
-  action: 'action',
-  description: 'description',
-  ipAddress: 'ipAddress',
-  userAgent: 'userAgent',
   userId: 'userId',
-  createdAt: 'createdAt'
-} as const
-
-export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
-
-
-export const DepartmentScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  headDoctorId: 'headDoctorId',
-  hospital: 'hospital',
-  phone: 'phone',
-  email: 'email',
-  location: 'location',
-  isActive: 'isActive',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  link: 'link',
+  read: 'read',
+  readAt: 'readAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
-
-
-export const DoctorScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  departmentId: 'departmentId',
-  specialization: 'specialization',
-  licenseNumber: 'licenseNumber',
-  qualifications: 'qualifications',
-  experience: 'experience',
-  hospital: 'hospital',
-  consultationFee: 'consultationFee',
-  availableDays: 'availableDays',
-  bio: 'bio',
-  rating: 'rating',
-  totalReviews: 'totalReviews',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DoctorScalarFieldEnum = (typeof DoctorScalarFieldEnum)[keyof typeof DoctorScalarFieldEnum]
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const PatientScalarFieldEnum = {
@@ -342,19 +379,19 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-export const JsonNullValueInput = {
-  JsonNull: JsonNull
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
 export const NullableJsonNullValueInput = {
   DbNull: DbNull,
   JsonNull: JsonNull
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

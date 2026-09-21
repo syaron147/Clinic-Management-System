@@ -646,9 +646,9 @@ export type BillSumOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
 }
 
-export type BillScalarRelationFilter = {
-  is?: Prisma.BillWhereInput
-  isNot?: Prisma.BillWhereInput
+export type BillNullableScalarRelationFilter = {
+  is?: Prisma.BillWhereInput | null
+  isNot?: Prisma.BillWhereInput | null
 }
 
 export type BillCreateNestedManyWithoutAppointmentInput = {
@@ -715,10 +715,12 @@ export type BillCreateNestedOneWithoutPaymentsInput = {
   connect?: Prisma.BillWhereUniqueInput
 }
 
-export type BillUpdateOneRequiredWithoutPaymentsNestedInput = {
+export type BillUpdateOneWithoutPaymentsNestedInput = {
   create?: Prisma.XOR<Prisma.BillCreateWithoutPaymentsInput, Prisma.BillUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.BillCreateOrConnectWithoutPaymentsInput
   upsert?: Prisma.BillUpsertWithoutPaymentsInput
+  disconnect?: Prisma.BillWhereInput | boolean
+  delete?: Prisma.BillWhereInput | boolean
   connect?: Prisma.BillWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BillUpdateToOneWithWhereWithoutPaymentsInput, Prisma.BillUpdateWithoutPaymentsInput>, Prisma.BillUncheckedUpdateWithoutPaymentsInput>
 }

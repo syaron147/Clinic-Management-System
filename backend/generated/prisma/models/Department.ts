@@ -253,11 +253,11 @@ export type DepartmentOrderByWithRelationInput = {
 export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   name?: string
+  headDoctorId?: string
   AND?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
   OR?: Prisma.DepartmentWhereInput[]
   NOT?: Prisma.DepartmentWhereInput | Prisma.DepartmentWhereInput[]
   description?: Prisma.StringNullableFilter<"Department"> | string | null
-  headDoctorId?: Prisma.StringNullableFilter<"Department"> | string | null
   hospital?: Prisma.StringNullableFilter<"Department"> | string | null
   phone?: Prisma.StringNullableFilter<"Department"> | string | null
   email?: Prisma.StringNullableFilter<"Department"> | string | null
@@ -267,7 +267,7 @@ export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Department"> | Date | string
   headDoctor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   doctors?: Prisma.DoctorListRelationFilter
-}, "id" | "name">
+}, "id" | "name" | "headDoctorId">
 
 export type DepartmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -314,7 +314,7 @@ export type DepartmentCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  headDoctor?: Prisma.UserCreateNestedOneWithoutHeadedDepartmentsInput
+  headDoctor?: Prisma.UserCreateNestedOneWithoutDepartmentHeadInput
   doctors?: Prisma.DoctorCreateNestedManyWithoutDepartmentInput
 }
 
@@ -344,7 +344,7 @@ export type DepartmentUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  headDoctor?: Prisma.UserUpdateOneWithoutHeadedDepartmentsNestedInput
+  headDoctor?: Prisma.UserUpdateOneWithoutDepartmentHeadNestedInput
   doctors?: Prisma.DoctorUpdateManyWithoutDepartmentNestedInput
 }
 
@@ -451,16 +451,6 @@ export type DepartmentNullableScalarRelationFilter = {
   isNot?: Prisma.DepartmentWhereInput | null
 }
 
-export type DepartmentListRelationFilter = {
-  every?: Prisma.DepartmentWhereInput
-  some?: Prisma.DepartmentWhereInput
-  none?: Prisma.DepartmentWhereInput
-}
-
-export type DepartmentOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type DepartmentCreateNestedOneWithoutDoctorsInput = {
   create?: Prisma.XOR<Prisma.DepartmentCreateWithoutDoctorsInput, Prisma.DepartmentUncheckedCreateWithoutDoctorsInput>
   connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutDoctorsInput
@@ -477,46 +467,36 @@ export type DepartmentUpdateOneWithoutDoctorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutDoctorsInput, Prisma.DepartmentUpdateWithoutDoctorsInput>, Prisma.DepartmentUncheckedUpdateWithoutDoctorsInput>
 }
 
-export type DepartmentCreateNestedManyWithoutHeadDoctorInput = {
-  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput> | Prisma.DepartmentCreateWithoutHeadDoctorInput[] | Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput[]
-  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput | Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput[]
-  createMany?: Prisma.DepartmentCreateManyHeadDoctorInputEnvelope
-  connect?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
+export type DepartmentCreateNestedOneWithoutHeadDoctorInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput
+  connect?: Prisma.DepartmentWhereUniqueInput
 }
 
-export type DepartmentUncheckedCreateNestedManyWithoutHeadDoctorInput = {
-  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput> | Prisma.DepartmentCreateWithoutHeadDoctorInput[] | Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput[]
-  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput | Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput[]
-  createMany?: Prisma.DepartmentCreateManyHeadDoctorInputEnvelope
-  connect?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
+export type DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput
+  connect?: Prisma.DepartmentWhereUniqueInput
 }
 
-export type DepartmentUpdateManyWithoutHeadDoctorNestedInput = {
-  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput> | Prisma.DepartmentCreateWithoutHeadDoctorInput[] | Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput[]
-  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput | Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput[]
-  upsert?: Prisma.DepartmentUpsertWithWhereUniqueWithoutHeadDoctorInput | Prisma.DepartmentUpsertWithWhereUniqueWithoutHeadDoctorInput[]
-  createMany?: Prisma.DepartmentCreateManyHeadDoctorInputEnvelope
-  set?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
-  disconnect?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
-  delete?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
-  connect?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
-  update?: Prisma.DepartmentUpdateWithWhereUniqueWithoutHeadDoctorInput | Prisma.DepartmentUpdateWithWhereUniqueWithoutHeadDoctorInput[]
-  updateMany?: Prisma.DepartmentUpdateManyWithWhereWithoutHeadDoctorInput | Prisma.DepartmentUpdateManyWithWhereWithoutHeadDoctorInput[]
-  deleteMany?: Prisma.DepartmentScalarWhereInput | Prisma.DepartmentScalarWhereInput[]
+export type DepartmentUpdateOneWithoutHeadDoctorNestedInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput
+  upsert?: Prisma.DepartmentUpsertWithoutHeadDoctorInput
+  disconnect?: Prisma.DepartmentWhereInput | boolean
+  delete?: Prisma.DepartmentWhereInput | boolean
+  connect?: Prisma.DepartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutHeadDoctorInput, Prisma.DepartmentUpdateWithoutHeadDoctorInput>, Prisma.DepartmentUncheckedUpdateWithoutHeadDoctorInput>
 }
 
-export type DepartmentUncheckedUpdateManyWithoutHeadDoctorNestedInput = {
-  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput> | Prisma.DepartmentCreateWithoutHeadDoctorInput[] | Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput[]
-  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput | Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput[]
-  upsert?: Prisma.DepartmentUpsertWithWhereUniqueWithoutHeadDoctorInput | Prisma.DepartmentUpsertWithWhereUniqueWithoutHeadDoctorInput[]
-  createMany?: Prisma.DepartmentCreateManyHeadDoctorInputEnvelope
-  set?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
-  disconnect?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
-  delete?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
-  connect?: Prisma.DepartmentWhereUniqueInput | Prisma.DepartmentWhereUniqueInput[]
-  update?: Prisma.DepartmentUpdateWithWhereUniqueWithoutHeadDoctorInput | Prisma.DepartmentUpdateWithWhereUniqueWithoutHeadDoctorInput[]
-  updateMany?: Prisma.DepartmentUpdateManyWithWhereWithoutHeadDoctorInput | Prisma.DepartmentUpdateManyWithWhereWithoutHeadDoctorInput[]
-  deleteMany?: Prisma.DepartmentScalarWhereInput | Prisma.DepartmentScalarWhereInput[]
+export type DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput = {
+  create?: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput>
+  connectOrCreate?: Prisma.DepartmentCreateOrConnectWithoutHeadDoctorInput
+  upsert?: Prisma.DepartmentUpsertWithoutHeadDoctorInput
+  disconnect?: Prisma.DepartmentWhereInput | boolean
+  delete?: Prisma.DepartmentWhereInput | boolean
+  connect?: Prisma.DepartmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DepartmentUpdateToOneWithWhereWithoutHeadDoctorInput, Prisma.DepartmentUpdateWithoutHeadDoctorInput>, Prisma.DepartmentUncheckedUpdateWithoutHeadDoctorInput>
 }
 
 export type DepartmentCreateWithoutDoctorsInput = {
@@ -530,7 +510,7 @@ export type DepartmentCreateWithoutDoctorsInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  headDoctor?: Prisma.UserCreateNestedOneWithoutHeadedDepartmentsInput
+  headDoctor?: Prisma.UserCreateNestedOneWithoutDepartmentHeadInput
 }
 
 export type DepartmentUncheckedCreateWithoutDoctorsInput = {
@@ -574,7 +554,7 @@ export type DepartmentUpdateWithoutDoctorsInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  headDoctor?: Prisma.UserUpdateOneWithoutHeadedDepartmentsNestedInput
+  headDoctor?: Prisma.UserUpdateOneWithoutDepartmentHeadNestedInput
 }
 
 export type DepartmentUncheckedUpdateWithoutDoctorsInput = {
@@ -624,55 +604,15 @@ export type DepartmentCreateOrConnectWithoutHeadDoctorInput = {
   create: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput>
 }
 
-export type DepartmentCreateManyHeadDoctorInputEnvelope = {
-  data: Prisma.DepartmentCreateManyHeadDoctorInput | Prisma.DepartmentCreateManyHeadDoctorInput[]
-  skipDuplicates?: boolean
-}
-
-export type DepartmentUpsertWithWhereUniqueWithoutHeadDoctorInput = {
-  where: Prisma.DepartmentWhereUniqueInput
+export type DepartmentUpsertWithoutHeadDoctorInput = {
   update: Prisma.XOR<Prisma.DepartmentUpdateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedUpdateWithoutHeadDoctorInput>
   create: Prisma.XOR<Prisma.DepartmentCreateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedCreateWithoutHeadDoctorInput>
+  where?: Prisma.DepartmentWhereInput
 }
 
-export type DepartmentUpdateWithWhereUniqueWithoutHeadDoctorInput = {
-  where: Prisma.DepartmentWhereUniqueInput
+export type DepartmentUpdateToOneWithWhereWithoutHeadDoctorInput = {
+  where?: Prisma.DepartmentWhereInput
   data: Prisma.XOR<Prisma.DepartmentUpdateWithoutHeadDoctorInput, Prisma.DepartmentUncheckedUpdateWithoutHeadDoctorInput>
-}
-
-export type DepartmentUpdateManyWithWhereWithoutHeadDoctorInput = {
-  where: Prisma.DepartmentScalarWhereInput
-  data: Prisma.XOR<Prisma.DepartmentUpdateManyMutationInput, Prisma.DepartmentUncheckedUpdateManyWithoutHeadDoctorInput>
-}
-
-export type DepartmentScalarWhereInput = {
-  AND?: Prisma.DepartmentScalarWhereInput | Prisma.DepartmentScalarWhereInput[]
-  OR?: Prisma.DepartmentScalarWhereInput[]
-  NOT?: Prisma.DepartmentScalarWhereInput | Prisma.DepartmentScalarWhereInput[]
-  id?: Prisma.StringFilter<"Department"> | string
-  name?: Prisma.StringFilter<"Department"> | string
-  description?: Prisma.StringNullableFilter<"Department"> | string | null
-  headDoctorId?: Prisma.StringNullableFilter<"Department"> | string | null
-  hospital?: Prisma.StringNullableFilter<"Department"> | string | null
-  phone?: Prisma.StringNullableFilter<"Department"> | string | null
-  email?: Prisma.StringNullableFilter<"Department"> | string | null
-  location?: Prisma.StringNullableFilter<"Department"> | string | null
-  isActive?: Prisma.BoolFilter<"Department"> | boolean
-  createdAt?: Prisma.DateTimeFilter<"Department"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Department"> | Date | string
-}
-
-export type DepartmentCreateManyHeadDoctorInput = {
-  id?: string
-  name: string
-  description?: string | null
-  hospital?: string | null
-  phone?: string | null
-  email?: string | null
-  location?: string | null
-  isActive?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type DepartmentUpdateWithoutHeadDoctorInput = {
@@ -701,19 +641,6 @@ export type DepartmentUncheckedUpdateWithoutHeadDoctorInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   doctors?: Prisma.DoctorUncheckedUpdateManyWithoutDepartmentNestedInput
-}
-
-export type DepartmentUncheckedUpdateManyWithoutHeadDoctorInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 

@@ -9,34 +9,35 @@
 * 🟢 You can import this file directly.
 */
 
-export const BillStatus = {
-  UNPAID: 'UNPAID',
-  PAID: 'PAID',
-  PARTIALLY_PAID: 'PARTIALLY_PAID',
-  CANCELLED: 'CANCELLED',
-  REFUNDED: 'REFUNDED'
+export const Role = {
+  ADMIN: 'ADMIN',
+  DOCTOR: 'DOCTOR',
+  PATIENT: 'PATIENT',
+  RECEPTIONIST: 'RECEPTIONIST'
 } as const
 
-export type BillStatus = (typeof BillStatus)[keyof typeof BillStatus]
+export type Role = (typeof Role)[keyof typeof Role]
 
 
-export const PaymentMethod = {
-  CASH: 'CASH',
-  KHALTI: 'KHALTI',
-  ESEWA: 'ESEWA'
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  OTHER: 'OTHER'
 } as const
 
-export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
-export const PaymentStatus = {
-  PENDING: 'PENDING',
+export const AppointmentStatus = {
+  SCHEDULED: 'SCHEDULED',
+  CONFIRMED: 'CONFIRMED',
   COMPLETED: 'COMPLETED',
-  FAILED: 'FAILED',
-  REFUNDED: 'REFUNDED'
+  CANCELLED: 'CANCELLED',
+  RESCHEDULED: 'RESCHEDULED',
+  NO_SHOW: 'NO_SHOW'
 } as const
 
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof AppointmentStatus]
 
 
 export const PrescriptionStatus = {
@@ -73,65 +74,39 @@ export const ReportStatus = {
 export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
 
 
-export const Role = {
-  PATIENT: 'PATIENT',
-  DOCTOR: 'DOCTOR',
-  ADMIN: 'ADMIN',
-  RECEPTIONIST: 'RECEPTIONIST'
-} as const
-
-export type Role = (typeof Role)[keyof typeof Role]
-
-
-export const Gender = {
-  MALE: 'MALE',
-  FEMALE: 'FEMALE',
-  OTHER: 'OTHER'
-} as const
-
-export type Gender = (typeof Gender)[keyof typeof Gender]
-
-
-export const AppointmentStatus = {
-  SCHEDULED: 'SCHEDULED',
-  CONFIRMED: 'CONFIRMED',
-  COMPLETED: 'COMPLETED',
+export const BillStatus = {
+  UNPAID: 'UNPAID',
+  PAID: 'PAID',
+  PARTIALLY_PAID: 'PARTIALLY_PAID',
   CANCELLED: 'CANCELLED',
-  RESCHEDULED: 'RESCHEDULED',
-  NO_SHOW: 'NO_SHOW'
+  REFUNDED: 'REFUNDED'
 } as const
 
-export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof AppointmentStatus]
+export type BillStatus = (typeof BillStatus)[keyof typeof BillStatus]
+
+
+export const PaymentMethod = {
+  ESEWA: 'ESEWA',
+  KHALTI: 'KHALTI',
+  CASH: 'CASH'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
 
 export const OTPType = {
   EMAIL_VERIFICATION: 'EMAIL_VERIFICATION',
-  PASSWORD_RESET: 'PASSWORD_RESET',
-  LOGIN: 'LOGIN',
-  PHONE_VERIFICATION: 'PHONE_VERIFICATION'
-} as const
-
-export type OTPType = (typeof OTPType)[keyof typeof OTPType]
-
-
-export const AuditAction = {
-  LOGIN: 'LOGIN',
-  LOGOUT: 'LOGOUT',
-  REGISTER: 'REGISTER',
-  CREATE: 'CREATE',
-  UPDATE: 'UPDATE',
-  DELETE: 'DELETE',
-  PASSWORD_CHANGE: 'PASSWORD_CHANGE',
   PASSWORD_RESET: 'PASSWORD_RESET'
 } as const
 
-export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
-
-
-export const SessionStatus = {
-  ACTIVE: 'ACTIVE',
-  EXPIRED: 'EXPIRED',
-  REVOKED: 'REVOKED'
-} as const
-
-export type SessionStatus = (typeof SessionStatus)[keyof typeof SessionStatus]
+export type OTPType = (typeof OTPType)[keyof typeof OTPType]

@@ -86,6 +86,7 @@ export type DoctorCountAggregateOutputType = {
   bio: number
   rating: number
   totalReviews: number
+  certificates: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -152,6 +153,7 @@ export type DoctorCountAggregateInputType = {
   bio?: true
   rating?: true
   totalReviews?: true
+  certificates?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -249,7 +251,7 @@ export type DoctorGroupByOutputType = {
   departmentId: string | null
   specialization: string | null
   licenseNumber: string | null
-  qualifications: runtime.JsonValue
+  qualifications: runtime.JsonValue | null
   experience: number | null
   hospital: string | null
   consultationFee: number | null
@@ -257,6 +259,7 @@ export type DoctorGroupByOutputType = {
   bio: string | null
   rating: number
   totalReviews: number
+  certificates: runtime.JsonValue | null
   createdAt: Date
   updatedAt: Date
   _count: DoctorCountAggregateOutputType | null
@@ -290,7 +293,7 @@ export type DoctorWhereInput = {
   departmentId?: Prisma.StringNullableFilter<"Doctor"> | string | null
   specialization?: Prisma.StringNullableFilter<"Doctor"> | string | null
   licenseNumber?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  qualifications?: Prisma.JsonFilter<"Doctor">
+  qualifications?: Prisma.JsonNullableFilter<"Doctor">
   experience?: Prisma.IntNullableFilter<"Doctor"> | number | null
   hospital?: Prisma.StringNullableFilter<"Doctor"> | string | null
   consultationFee?: Prisma.FloatNullableFilter<"Doctor"> | number | null
@@ -298,6 +301,7 @@ export type DoctorWhereInput = {
   bio?: Prisma.StringNullableFilter<"Doctor"> | string | null
   rating?: Prisma.FloatFilter<"Doctor"> | number
   totalReviews?: Prisma.IntFilter<"Doctor"> | number
+  certificates?: Prisma.JsonNullableFilter<"Doctor">
   createdAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -312,7 +316,7 @@ export type DoctorOrderByWithRelationInput = {
   departmentId?: Prisma.SortOrderInput | Prisma.SortOrder
   specialization?: Prisma.SortOrderInput | Prisma.SortOrder
   licenseNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  qualifications?: Prisma.SortOrder
+  qualifications?: Prisma.SortOrderInput | Prisma.SortOrder
   experience?: Prisma.SortOrderInput | Prisma.SortOrder
   hospital?: Prisma.SortOrderInput | Prisma.SortOrder
   consultationFee?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -320,6 +324,7 @@ export type DoctorOrderByWithRelationInput = {
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalReviews?: Prisma.SortOrder
+  certificates?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -337,7 +342,7 @@ export type DoctorWhereUniqueInput = Prisma.AtLeast<{
   departmentId?: Prisma.StringNullableFilter<"Doctor"> | string | null
   specialization?: Prisma.StringNullableFilter<"Doctor"> | string | null
   licenseNumber?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  qualifications?: Prisma.JsonFilter<"Doctor">
+  qualifications?: Prisma.JsonNullableFilter<"Doctor">
   experience?: Prisma.IntNullableFilter<"Doctor"> | number | null
   hospital?: Prisma.StringNullableFilter<"Doctor"> | string | null
   consultationFee?: Prisma.FloatNullableFilter<"Doctor"> | number | null
@@ -345,6 +350,7 @@ export type DoctorWhereUniqueInput = Prisma.AtLeast<{
   bio?: Prisma.StringNullableFilter<"Doctor"> | string | null
   rating?: Prisma.FloatFilter<"Doctor"> | number
   totalReviews?: Prisma.IntFilter<"Doctor"> | number
+  certificates?: Prisma.JsonNullableFilter<"Doctor">
   createdAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -359,7 +365,7 @@ export type DoctorOrderByWithAggregationInput = {
   departmentId?: Prisma.SortOrderInput | Prisma.SortOrder
   specialization?: Prisma.SortOrderInput | Prisma.SortOrder
   licenseNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  qualifications?: Prisma.SortOrder
+  qualifications?: Prisma.SortOrderInput | Prisma.SortOrder
   experience?: Prisma.SortOrderInput | Prisma.SortOrder
   hospital?: Prisma.SortOrderInput | Prisma.SortOrder
   consultationFee?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -367,6 +373,7 @@ export type DoctorOrderByWithAggregationInput = {
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalReviews?: Prisma.SortOrder
+  certificates?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DoctorCountOrderByAggregateInput
@@ -385,7 +392,7 @@ export type DoctorScalarWhereWithAggregatesInput = {
   departmentId?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   specialization?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   licenseNumber?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
-  qualifications?: Prisma.JsonWithAggregatesFilter<"Doctor">
+  qualifications?: Prisma.JsonNullableWithAggregatesFilter<"Doctor">
   experience?: Prisma.IntNullableWithAggregatesFilter<"Doctor"> | number | null
   hospital?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   consultationFee?: Prisma.FloatNullableWithAggregatesFilter<"Doctor"> | number | null
@@ -393,6 +400,7 @@ export type DoctorScalarWhereWithAggregatesInput = {
   bio?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   rating?: Prisma.FloatWithAggregatesFilter<"Doctor"> | number
   totalReviews?: Prisma.IntWithAggregatesFilter<"Doctor"> | number
+  certificates?: Prisma.JsonNullableWithAggregatesFilter<"Doctor">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Doctor"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Doctor"> | Date | string
 }
@@ -401,7 +409,7 @@ export type DoctorCreateInput = {
   id?: string
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -409,6 +417,7 @@ export type DoctorCreateInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDoctorInput
@@ -423,7 +432,7 @@ export type DoctorUncheckedCreateInput = {
   departmentId?: string | null
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -431,6 +440,7 @@ export type DoctorUncheckedCreateInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDoctorInput
@@ -441,7 +451,7 @@ export type DoctorUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -449,6 +459,7 @@ export type DoctorUpdateInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDoctorNestedInput
@@ -463,7 +474,7 @@ export type DoctorUncheckedUpdateInput = {
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -471,6 +482,7 @@ export type DoctorUncheckedUpdateInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDoctorNestedInput
@@ -483,7 +495,7 @@ export type DoctorCreateManyInput = {
   departmentId?: string | null
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -491,6 +503,7 @@ export type DoctorCreateManyInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -499,7 +512,7 @@ export type DoctorUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -507,6 +520,7 @@ export type DoctorUpdateManyMutationInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -517,7 +531,7 @@ export type DoctorUncheckedUpdateManyInput = {
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -525,6 +539,7 @@ export type DoctorUncheckedUpdateManyInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -558,6 +573,7 @@ export type DoctorCountOrderByAggregateInput = {
   bio?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalReviews?: Prisma.SortOrder
+  certificates?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -627,20 +643,6 @@ export type DoctorUpdateOneRequiredWithoutAppointmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DoctorUpdateToOneWithWhereWithoutAppointmentsInput, Prisma.DoctorUpdateWithoutAppointmentsInput>, Prisma.DoctorUncheckedUpdateWithoutAppointmentsInput>
 }
 
-export type DoctorCreateNestedOneWithoutMedicalRecordsInput = {
-  create?: Prisma.XOR<Prisma.DoctorCreateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedCreateWithoutMedicalRecordsInput>
-  connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutMedicalRecordsInput
-  connect?: Prisma.DoctorWhereUniqueInput
-}
-
-export type DoctorUpdateOneRequiredWithoutMedicalRecordsNestedInput = {
-  create?: Prisma.XOR<Prisma.DoctorCreateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedCreateWithoutMedicalRecordsInput>
-  connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutMedicalRecordsInput
-  upsert?: Prisma.DoctorUpsertWithoutMedicalRecordsInput
-  connect?: Prisma.DoctorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DoctorUpdateToOneWithWhereWithoutMedicalRecordsInput, Prisma.DoctorUpdateWithoutMedicalRecordsInput>, Prisma.DoctorUncheckedUpdateWithoutMedicalRecordsInput>
-}
-
 export type DoctorCreateNestedManyWithoutDepartmentInput = {
   create?: Prisma.XOR<Prisma.DoctorCreateWithoutDepartmentInput, Prisma.DoctorUncheckedCreateWithoutDepartmentInput> | Prisma.DoctorCreateWithoutDepartmentInput[] | Prisma.DoctorUncheckedCreateWithoutDepartmentInput[]
   connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutDepartmentInput | Prisma.DoctorCreateOrConnectWithoutDepartmentInput[]
@@ -699,6 +701,28 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type DoctorCreateNestedOneWithoutMedicalRecordsInput = {
+  create?: Prisma.XOR<Prisma.DoctorCreateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedCreateWithoutMedicalRecordsInput>
+  connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutMedicalRecordsInput
+  connect?: Prisma.DoctorWhereUniqueInput
+}
+
+export type DoctorUpdateOneRequiredWithoutMedicalRecordsNestedInput = {
+  create?: Prisma.XOR<Prisma.DoctorCreateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedCreateWithoutMedicalRecordsInput>
+  connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutMedicalRecordsInput
+  upsert?: Prisma.DoctorUpsertWithoutMedicalRecordsInput
+  connect?: Prisma.DoctorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DoctorUpdateToOneWithWhereWithoutMedicalRecordsInput, Prisma.DoctorUpdateWithoutMedicalRecordsInput>, Prisma.DoctorUncheckedUpdateWithoutMedicalRecordsInput>
+}
+
 export type DoctorCreateNestedOneWithoutUserInput = {
   create?: Prisma.XOR<Prisma.DoctorCreateWithoutUserInput, Prisma.DoctorUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.DoctorCreateOrConnectWithoutUserInput
@@ -735,7 +759,7 @@ export type DoctorCreateWithoutAppointmentsInput = {
   id?: string
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -743,6 +767,7 @@ export type DoctorCreateWithoutAppointmentsInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDoctorInput
@@ -756,7 +781,7 @@ export type DoctorUncheckedCreateWithoutAppointmentsInput = {
   departmentId?: string | null
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -764,6 +789,7 @@ export type DoctorUncheckedCreateWithoutAppointmentsInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   medicalRecords?: Prisma.MedicalRecordUncheckedCreateNestedManyWithoutDoctorInput
@@ -789,7 +815,7 @@ export type DoctorUpdateWithoutAppointmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -797,6 +823,7 @@ export type DoctorUpdateWithoutAppointmentsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDoctorNestedInput
@@ -810,7 +837,7 @@ export type DoctorUncheckedUpdateWithoutAppointmentsInput = {
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -818,108 +845,17 @@ export type DoctorUncheckedUpdateWithoutAppointmentsInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   medicalRecords?: Prisma.MedicalRecordUncheckedUpdateManyWithoutDoctorNestedInput
-}
-
-export type DoctorCreateWithoutMedicalRecordsInput = {
-  id?: string
-  specialization?: string | null
-  licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  experience?: number | null
-  hospital?: string | null
-  consultationFee?: number | null
-  availableDays?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  bio?: string | null
-  rating?: number
-  totalReviews?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutDoctorInput
-  department?: Prisma.DepartmentCreateNestedOneWithoutDoctorsInput
-  appointments?: Prisma.AppointmentCreateNestedManyWithoutDoctorInput
-}
-
-export type DoctorUncheckedCreateWithoutMedicalRecordsInput = {
-  id?: string
-  userId: string
-  departmentId?: string | null
-  specialization?: string | null
-  licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  experience?: number | null
-  hospital?: string | null
-  consultationFee?: number | null
-  availableDays?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  bio?: string | null
-  rating?: number
-  totalReviews?: number
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDoctorInput
-}
-
-export type DoctorCreateOrConnectWithoutMedicalRecordsInput = {
-  where: Prisma.DoctorWhereUniqueInput
-  create: Prisma.XOR<Prisma.DoctorCreateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedCreateWithoutMedicalRecordsInput>
-}
-
-export type DoctorUpsertWithoutMedicalRecordsInput = {
-  update: Prisma.XOR<Prisma.DoctorUpdateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedUpdateWithoutMedicalRecordsInput>
-  create: Prisma.XOR<Prisma.DoctorCreateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedCreateWithoutMedicalRecordsInput>
-  where?: Prisma.DoctorWhereInput
-}
-
-export type DoctorUpdateToOneWithWhereWithoutMedicalRecordsInput = {
-  where?: Prisma.DoctorWhereInput
-  data: Prisma.XOR<Prisma.DoctorUpdateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedUpdateWithoutMedicalRecordsInput>
-}
-
-export type DoctorUpdateWithoutMedicalRecordsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  availableDays?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutDoctorNestedInput
-  department?: Prisma.DepartmentUpdateOneWithoutDoctorsNestedInput
-  appointments?: Prisma.AppointmentUpdateManyWithoutDoctorNestedInput
-}
-
-export type DoctorUncheckedUpdateWithoutMedicalRecordsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  availableDays?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDoctorNestedInput
 }
 
 export type DoctorCreateWithoutDepartmentInput = {
   id?: string
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -927,6 +863,7 @@ export type DoctorCreateWithoutDepartmentInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDoctorInput
@@ -939,7 +876,7 @@ export type DoctorUncheckedCreateWithoutDepartmentInput = {
   userId: string
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -947,6 +884,7 @@ export type DoctorUncheckedCreateWithoutDepartmentInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDoctorInput
@@ -988,7 +926,7 @@ export type DoctorScalarWhereInput = {
   departmentId?: Prisma.StringNullableFilter<"Doctor"> | string | null
   specialization?: Prisma.StringNullableFilter<"Doctor"> | string | null
   licenseNumber?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  qualifications?: Prisma.JsonFilter<"Doctor">
+  qualifications?: Prisma.JsonNullableFilter<"Doctor">
   experience?: Prisma.IntNullableFilter<"Doctor"> | number | null
   hospital?: Prisma.StringNullableFilter<"Doctor"> | string | null
   consultationFee?: Prisma.FloatNullableFilter<"Doctor"> | number | null
@@ -996,15 +934,16 @@ export type DoctorScalarWhereInput = {
   bio?: Prisma.StringNullableFilter<"Doctor"> | string | null
   rating?: Prisma.FloatFilter<"Doctor"> | number
   totalReviews?: Prisma.IntFilter<"Doctor"> | number
+  certificates?: Prisma.JsonNullableFilter<"Doctor">
   createdAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
 }
 
-export type DoctorCreateWithoutUserInput = {
+export type DoctorCreateWithoutMedicalRecordsInput = {
   id?: string
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -1012,6 +951,103 @@ export type DoctorCreateWithoutUserInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutDoctorInput
+  department?: Prisma.DepartmentCreateNestedOneWithoutDoctorsInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutDoctorInput
+}
+
+export type DoctorUncheckedCreateWithoutMedicalRecordsInput = {
+  id?: string
+  userId: string
+  departmentId?: string | null
+  specialization?: string | null
+  licenseNumber?: string | null
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  experience?: number | null
+  hospital?: string | null
+  consultationFee?: number | null
+  availableDays?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bio?: string | null
+  rating?: number
+  totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDoctorInput
+}
+
+export type DoctorCreateOrConnectWithoutMedicalRecordsInput = {
+  where: Prisma.DoctorWhereUniqueInput
+  create: Prisma.XOR<Prisma.DoctorCreateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedCreateWithoutMedicalRecordsInput>
+}
+
+export type DoctorUpsertWithoutMedicalRecordsInput = {
+  update: Prisma.XOR<Prisma.DoctorUpdateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedUpdateWithoutMedicalRecordsInput>
+  create: Prisma.XOR<Prisma.DoctorCreateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedCreateWithoutMedicalRecordsInput>
+  where?: Prisma.DoctorWhereInput
+}
+
+export type DoctorUpdateToOneWithWhereWithoutMedicalRecordsInput = {
+  where?: Prisma.DoctorWhereInput
+  data: Prisma.XOR<Prisma.DoctorUpdateWithoutMedicalRecordsInput, Prisma.DoctorUncheckedUpdateWithoutMedicalRecordsInput>
+}
+
+export type DoctorUpdateWithoutMedicalRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  availableDays?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutDoctorNestedInput
+  department?: Prisma.DepartmentUpdateOneWithoutDoctorsNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutDoctorNestedInput
+}
+
+export type DoctorUncheckedUpdateWithoutMedicalRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  availableDays?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDoctorNestedInput
+}
+
+export type DoctorCreateWithoutUserInput = {
+  id?: string
+  specialization?: string | null
+  licenseNumber?: string | null
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  experience?: number | null
+  hospital?: string | null
+  consultationFee?: number | null
+  availableDays?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bio?: string | null
+  rating?: number
+  totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutDoctorsInput
@@ -1024,7 +1060,7 @@ export type DoctorUncheckedCreateWithoutUserInput = {
   departmentId?: string | null
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -1032,6 +1068,7 @@ export type DoctorUncheckedCreateWithoutUserInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutDoctorInput
@@ -1058,7 +1095,7 @@ export type DoctorUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1066,6 +1103,7 @@ export type DoctorUpdateWithoutUserInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutDoctorsNestedInput
@@ -1078,7 +1116,7 @@ export type DoctorUncheckedUpdateWithoutUserInput = {
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1086,6 +1124,7 @@ export type DoctorUncheckedUpdateWithoutUserInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDoctorNestedInput
@@ -1097,7 +1136,7 @@ export type DoctorCreateManyDepartmentInput = {
   userId: string
   specialization?: string | null
   licenseNumber?: string | null
-  qualifications: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: number | null
   hospital?: string | null
   consultationFee?: number | null
@@ -1105,6 +1144,7 @@ export type DoctorCreateManyDepartmentInput = {
   bio?: string | null
   rating?: number
   totalReviews?: number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1113,7 +1153,7 @@ export type DoctorUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1121,6 +1161,7 @@ export type DoctorUpdateWithoutDepartmentInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDoctorNestedInput
@@ -1133,7 +1174,7 @@ export type DoctorUncheckedUpdateWithoutDepartmentInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1141,6 +1182,7 @@ export type DoctorUncheckedUpdateWithoutDepartmentInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutDoctorNestedInput
@@ -1152,7 +1194,7 @@ export type DoctorUncheckedUpdateManyWithoutDepartmentInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   licenseNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  qualifications?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  qualifications?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hospital?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   consultationFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1160,6 +1202,7 @@ export type DoctorUncheckedUpdateManyWithoutDepartmentInput = {
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  certificates?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1218,6 +1261,7 @@ export type DoctorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   bio?: boolean
   rating?: boolean
   totalReviews?: boolean
+  certificates?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1241,6 +1285,7 @@ export type DoctorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   bio?: boolean
   rating?: boolean
   totalReviews?: boolean
+  certificates?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1261,6 +1306,7 @@ export type DoctorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   bio?: boolean
   rating?: boolean
   totalReviews?: boolean
+  certificates?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1281,11 +1327,12 @@ export type DoctorSelectScalar = {
   bio?: boolean
   rating?: boolean
   totalReviews?: boolean
+  certificates?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DoctorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "departmentId" | "specialization" | "licenseNumber" | "qualifications" | "experience" | "hospital" | "consultationFee" | "availableDays" | "bio" | "rating" | "totalReviews" | "createdAt" | "updatedAt", ExtArgs["result"]["doctor"]>
+export type DoctorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "departmentId" | "specialization" | "licenseNumber" | "qualifications" | "experience" | "hospital" | "consultationFee" | "availableDays" | "bio" | "rating" | "totalReviews" | "certificates" | "createdAt" | "updatedAt", ExtArgs["result"]["doctor"]>
 export type DoctorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   department?: boolean | Prisma.Doctor$departmentArgs<ExtArgs>
@@ -1316,7 +1363,7 @@ export type $DoctorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     departmentId: string | null
     specialization: string | null
     licenseNumber: string | null
-    qualifications: runtime.JsonValue
+    qualifications: runtime.JsonValue | null
     experience: number | null
     hospital: string | null
     consultationFee: number | null
@@ -1324,6 +1371,7 @@ export type $DoctorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     bio: string | null
     rating: number
     totalReviews: number
+    certificates: runtime.JsonValue | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["doctor"]>
@@ -1766,6 +1814,7 @@ export interface DoctorFieldRefs {
   readonly bio: Prisma.FieldRef<"Doctor", 'String'>
   readonly rating: Prisma.FieldRef<"Doctor", 'Float'>
   readonly totalReviews: Prisma.FieldRef<"Doctor", 'Int'>
+  readonly certificates: Prisma.FieldRef<"Doctor", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Doctor", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Doctor", 'DateTime'>
 }

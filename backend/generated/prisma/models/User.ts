@@ -252,7 +252,11 @@ export type UserWhereInput = {
   otps?: Prisma.OTPListRelationFilter
   patient?: Prisma.XOR<Prisma.PatientNullableScalarRelationFilter, Prisma.PatientWhereInput> | null
   doctor?: Prisma.XOR<Prisma.DoctorNullableScalarRelationFilter, Prisma.DoctorWhereInput> | null
-  headedDepartments?: Prisma.DepartmentListRelationFilter
+  departmentHead?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
+  sentMessages?: Prisma.ChatMessageListRelationFilter
+  receivedMessages?: Prisma.ChatMessageListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  processedPayments?: Prisma.PaymentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -275,18 +279,22 @@ export type UserOrderByWithRelationInput = {
   otps?: Prisma.OTPOrderByRelationAggregateInput
   patient?: Prisma.PatientOrderByWithRelationInput
   doctor?: Prisma.DoctorOrderByWithRelationInput
-  headedDepartments?: Prisma.DepartmentOrderByRelationAggregateInput
+  departmentHead?: Prisma.DepartmentOrderByWithRelationInput
+  sentMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
+  receivedMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  processedPayments?: Prisma.PaymentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
-  phone?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   password?: Prisma.StringFilter<"User"> | string
   fullName?: Prisma.StringFilter<"User"> | string
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
   avatar?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   isActive?: Prisma.BoolFilter<"User"> | boolean
@@ -301,8 +309,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   otps?: Prisma.OTPListRelationFilter
   patient?: Prisma.XOR<Prisma.PatientNullableScalarRelationFilter, Prisma.PatientWhereInput> | null
   doctor?: Prisma.XOR<Prisma.DoctorNullableScalarRelationFilter, Prisma.DoctorWhereInput> | null
-  headedDepartments?: Prisma.DepartmentListRelationFilter
-}, "id" | "email" | "phone">
+  departmentHead?: Prisma.XOR<Prisma.DepartmentNullableScalarRelationFilter, Prisma.DepartmentWhereInput> | null
+  sentMessages?: Prisma.ChatMessageListRelationFilter
+  receivedMessages?: Prisma.ChatMessageListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  processedPayments?: Prisma.PaymentListRelationFilter
+}, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -362,7 +374,11 @@ export type UserCreateInput = {
   otps?: Prisma.OTPCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -385,7 +401,11 @@ export type UserUncheckedCreateInput = {
   otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
 }
 
 export type UserUpdateInput = {
@@ -408,7 +428,11 @@ export type UserUpdateInput = {
   otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -431,7 +455,11 @@ export type UserUncheckedUpdateInput = {
   otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -574,10 +602,12 @@ export type UserCreateNestedOneWithoutOtpsInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutOtpsNestedInput = {
+export type UserUpdateOneWithoutOtpsNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutOtpsInput, Prisma.UserUncheckedCreateWithoutOtpsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutOtpsInput
   upsert?: Prisma.UserUpsertWithoutOtpsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOtpsInput, Prisma.UserUpdateWithoutOtpsInput>, Prisma.UserUncheckedUpdateWithoutOtpsInput>
 }
@@ -596,20 +626,36 @@ export type UserUpdateOneRequiredWithoutAuditLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
 }
 
-export type UserCreateNestedOneWithoutHeadedDepartmentsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutHeadedDepartmentsInput, Prisma.UserUncheckedCreateWithoutHeadedDepartmentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutHeadedDepartmentsInput
+export type UserCreateNestedOneWithoutProcessedPaymentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProcessedPaymentsInput, Prisma.UserUncheckedCreateWithoutProcessedPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProcessedPaymentsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneWithoutHeadedDepartmentsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutHeadedDepartmentsInput, Prisma.UserUncheckedCreateWithoutHeadedDepartmentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutHeadedDepartmentsInput
-  upsert?: Prisma.UserUpsertWithoutHeadedDepartmentsInput
+export type UserUpdateOneWithoutProcessedPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProcessedPaymentsInput, Prisma.UserUncheckedCreateWithoutProcessedPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProcessedPaymentsInput
+  upsert?: Prisma.UserUpsertWithoutProcessedPaymentsInput
   disconnect?: Prisma.UserWhereInput | boolean
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutHeadedDepartmentsInput, Prisma.UserUpdateWithoutHeadedDepartmentsInput>, Prisma.UserUncheckedUpdateWithoutHeadedDepartmentsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProcessedPaymentsInput, Prisma.UserUpdateWithoutProcessedPaymentsInput>, Prisma.UserUncheckedUpdateWithoutProcessedPaymentsInput>
+}
+
+export type UserCreateNestedOneWithoutDepartmentHeadInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDepartmentHeadInput, Prisma.UserUncheckedCreateWithoutDepartmentHeadInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDepartmentHeadInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutDepartmentHeadNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDepartmentHeadInput, Prisma.UserUncheckedCreateWithoutDepartmentHeadInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDepartmentHeadInput
+  upsert?: Prisma.UserUpsertWithoutDepartmentHeadInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDepartmentHeadInput, Prisma.UserUpdateWithoutDepartmentHeadInput>, Prisma.UserUncheckedUpdateWithoutDepartmentHeadInput>
 }
 
 export type UserCreateNestedOneWithoutDoctorInput = {
@@ -624,6 +670,48 @@ export type UserUpdateOneRequiredWithoutDoctorNestedInput = {
   upsert?: Prisma.UserUpsertWithoutDoctorInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDoctorInput, Prisma.UserUpdateWithoutDoctorInput>, Prisma.UserUncheckedUpdateWithoutDoctorInput>
+}
+
+export type UserCreateNestedOneWithoutSentMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReceivedMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput
+  upsert?: Prisma.UserUpsertWithoutSentMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessagesInput, Prisma.UserUpdateWithoutSentMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+}
+
+export type UserUpdateOneRequiredWithoutReceivedMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedMessagesInput
+  upsert?: Prisma.UserUpsertWithoutReceivedMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedMessagesInput, Prisma.UserUpdateWithoutReceivedMessagesInput>, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
 export type UserCreateNestedOneWithoutPatientInput = {
@@ -663,7 +751,11 @@ export type UserCreateWithoutRefreshTokensInput = {
   otps?: Prisma.OTPCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -685,7 +777,11 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -723,7 +819,11 @@ export type UserUpdateWithoutRefreshTokensInput = {
   otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -745,7 +845,11 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -767,7 +871,11 @@ export type UserCreateWithoutSessionsInput = {
   otps?: Prisma.OTPCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -789,7 +897,11 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -827,7 +939,11 @@ export type UserUpdateWithoutSessionsInput = {
   otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -849,7 +965,11 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserCreateWithoutOtpsInput = {
@@ -871,7 +991,11 @@ export type UserCreateWithoutOtpsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
 }
 
 export type UserUncheckedCreateWithoutOtpsInput = {
@@ -893,7 +1017,11 @@ export type UserUncheckedCreateWithoutOtpsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
 }
 
 export type UserCreateOrConnectWithoutOtpsInput = {
@@ -931,7 +1059,11 @@ export type UserUpdateWithoutOtpsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtpsInput = {
@@ -953,7 +1085,11 @@ export type UserUncheckedUpdateWithoutOtpsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -975,7 +1111,11 @@ export type UserCreateWithoutAuditLogsInput = {
   otps?: Prisma.OTPCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -997,7 +1137,11 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -1035,7 +1179,11 @@ export type UserUpdateWithoutAuditLogsInput = {
   otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -1057,10 +1205,14 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
 }
 
-export type UserCreateWithoutHeadedDepartmentsInput = {
+export type UserCreateWithoutProcessedPaymentsInput = {
   id?: string
   email: string
   password: string
@@ -1080,9 +1232,13 @@ export type UserCreateWithoutHeadedDepartmentsInput = {
   otps?: Prisma.OTPCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutHeadedDepartmentsInput = {
+export type UserUncheckedCreateWithoutProcessedPaymentsInput = {
   id?: string
   email: string
   password: string
@@ -1102,25 +1258,29 @@ export type UserUncheckedCreateWithoutHeadedDepartmentsInput = {
   otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
   doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutHeadedDepartmentsInput = {
+export type UserCreateOrConnectWithoutProcessedPaymentsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutHeadedDepartmentsInput, Prisma.UserUncheckedCreateWithoutHeadedDepartmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProcessedPaymentsInput, Prisma.UserUncheckedCreateWithoutProcessedPaymentsInput>
 }
 
-export type UserUpsertWithoutHeadedDepartmentsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutHeadedDepartmentsInput, Prisma.UserUncheckedUpdateWithoutHeadedDepartmentsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutHeadedDepartmentsInput, Prisma.UserUncheckedCreateWithoutHeadedDepartmentsInput>
+export type UserUpsertWithoutProcessedPaymentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProcessedPaymentsInput, Prisma.UserUncheckedUpdateWithoutProcessedPaymentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProcessedPaymentsInput, Prisma.UserUncheckedCreateWithoutProcessedPaymentsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutHeadedDepartmentsInput = {
+export type UserUpdateToOneWithWhereWithoutProcessedPaymentsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutHeadedDepartmentsInput, Prisma.UserUncheckedUpdateWithoutHeadedDepartmentsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProcessedPaymentsInput, Prisma.UserUncheckedUpdateWithoutProcessedPaymentsInput>
 }
 
-export type UserUpdateWithoutHeadedDepartmentsInput = {
+export type UserUpdateWithoutProcessedPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1140,9 +1300,13 @@ export type UserUpdateWithoutHeadedDepartmentsInput = {
   otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutHeadedDepartmentsInput = {
+export type UserUncheckedUpdateWithoutProcessedPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1162,6 +1326,130 @@ export type UserUncheckedUpdateWithoutHeadedDepartmentsInput = {
   otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
   doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDepartmentHeadInput = {
+  id?: string
+  email: string
+  password: string
+  fullName: string
+  phone?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  lastLoginIP?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  otps?: Prisma.OTPCreateNestedManyWithoutUserInput
+  patient?: Prisma.PatientCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
+}
+
+export type UserUncheckedCreateWithoutDepartmentHeadInput = {
+  id?: string
+  email: string
+  password: string
+  fullName: string
+  phone?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  lastLoginIP?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
+  patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
+}
+
+export type UserCreateOrConnectWithoutDepartmentHeadInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDepartmentHeadInput, Prisma.UserUncheckedCreateWithoutDepartmentHeadInput>
+}
+
+export type UserUpsertWithoutDepartmentHeadInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDepartmentHeadInput, Prisma.UserUncheckedUpdateWithoutDepartmentHeadInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDepartmentHeadInput, Prisma.UserUncheckedCreateWithoutDepartmentHeadInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDepartmentHeadInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDepartmentHeadInput, Prisma.UserUncheckedUpdateWithoutDepartmentHeadInput>
+}
+
+export type UserUpdateWithoutDepartmentHeadInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIP?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
+  patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDepartmentHeadInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIP?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
+  patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserCreateWithoutDoctorInput = {
@@ -1183,7 +1471,11 @@ export type UserCreateWithoutDoctorInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   otps?: Prisma.OTPCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
 }
 
 export type UserUncheckedCreateWithoutDoctorInput = {
@@ -1205,7 +1497,11 @@ export type UserUncheckedCreateWithoutDoctorInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
   patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
 }
 
 export type UserCreateOrConnectWithoutDoctorInput = {
@@ -1243,7 +1539,11 @@ export type UserUpdateWithoutDoctorInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDoctorInput = {
@@ -1265,7 +1565,371 @@ export type UserUncheckedUpdateWithoutDoctorInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
   patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
+}
+
+export type UserCreateWithoutSentMessagesInput = {
+  id?: string
+  email: string
+  password: string
+  fullName: string
+  phone?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  lastLoginIP?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  otps?: Prisma.OTPCreateNestedManyWithoutUserInput
+  patient?: Prisma.PatientCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
+}
+
+export type UserUncheckedCreateWithoutSentMessagesInput = {
+  id?: string
+  email: string
+  password: string
+  fullName: string
+  phone?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  lastLoginIP?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
+  patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
+}
+
+export type UserCreateOrConnectWithoutSentMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+}
+
+export type UserCreateWithoutReceivedMessagesInput = {
+  id?: string
+  email: string
+  password: string
+  fullName: string
+  phone?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  lastLoginIP?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  otps?: Prisma.OTPCreateNestedManyWithoutUserInput
+  patient?: Prisma.PatientCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
+}
+
+export type UserUncheckedCreateWithoutReceivedMessagesInput = {
+  id?: string
+  email: string
+  password: string
+  fullName: string
+  phone?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  lastLoginIP?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
+  patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
+}
+
+export type UserCreateOrConnectWithoutReceivedMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+}
+
+export type UserUpsertWithoutSentMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>
+}
+
+export type UserUpdateWithoutSentMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIP?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
+  patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIP?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
+  patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
+}
+
+export type UserUpsertWithoutReceivedMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedMessagesInput, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedMessagesInput, Prisma.UserUncheckedCreateWithoutReceivedMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReceivedMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedMessagesInput, Prisma.UserUncheckedUpdateWithoutReceivedMessagesInput>
+}
+
+export type UserUpdateWithoutReceivedMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIP?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
+  patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIP?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
+  patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  password: string
+  fullName: string
+  phone?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  lastLoginIP?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  otps?: Prisma.OTPCreateNestedManyWithoutUserInput
+  patient?: Prisma.PatientCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  password: string
+  fullName: string
+  phone?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  isActive?: boolean
+  isEmailVerified?: boolean
+  lastLoginAt?: Date | string | null
+  lastLoginIP?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
+  patient?: Prisma.PatientUncheckedCreateNestedOneWithoutUserInput
+  doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIP?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
+  patient?: Prisma.PatientUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginIP?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
+  patient?: Prisma.PatientUncheckedUpdateOneWithoutUserNestedInput
+  doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserCreateWithoutPatientInput = {
@@ -1287,7 +1951,11 @@ export type UserCreateWithoutPatientInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   otps?: Prisma.OTPCreateNestedManyWithoutUserInput
   doctor?: Prisma.DoctorCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentCreateNestedManyWithoutProcessorInput
 }
 
 export type UserUncheckedCreateWithoutPatientInput = {
@@ -1309,7 +1977,11 @@ export type UserUncheckedCreateWithoutPatientInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   otps?: Prisma.OTPUncheckedCreateNestedManyWithoutUserInput
   doctor?: Prisma.DoctorUncheckedCreateNestedOneWithoutUserInput
-  headedDepartments?: Prisma.DepartmentUncheckedCreateNestedManyWithoutHeadDoctorInput
+  departmentHead?: Prisma.DepartmentUncheckedCreateNestedOneWithoutHeadDoctorInput
+  sentMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  receivedMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutRecipientInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  processedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutProcessorInput
 }
 
 export type UserCreateOrConnectWithoutPatientInput = {
@@ -1347,7 +2019,11 @@ export type UserUpdateWithoutPatientInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   otps?: Prisma.OTPUpdateManyWithoutUserNestedInput
   doctor?: Prisma.DoctorUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUpdateManyWithoutProcessorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPatientInput = {
@@ -1369,7 +2045,11 @@ export type UserUncheckedUpdateWithoutPatientInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   otps?: Prisma.OTPUncheckedUpdateManyWithoutUserNestedInput
   doctor?: Prisma.DoctorUncheckedUpdateOneWithoutUserNestedInput
-  headedDepartments?: Prisma.DepartmentUncheckedUpdateManyWithoutHeadDoctorNestedInput
+  departmentHead?: Prisma.DepartmentUncheckedUpdateOneWithoutHeadDoctorNestedInput
+  sentMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  receivedMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutRecipientNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  processedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutProcessorNestedInput
 }
 
 
@@ -1382,7 +2062,10 @@ export type UserCountOutputType = {
   sessions: number
   auditLogs: number
   otps: number
-  headedDepartments: number
+  sentMessages: number
+  receivedMessages: number
+  notifications: number
+  processedPayments: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1390,7 +2073,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
   otps?: boolean | UserCountOutputTypeCountOtpsArgs
-  headedDepartments?: boolean | UserCountOutputTypeCountHeadedDepartmentsArgs
+  sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs
+  receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  processedPayments?: boolean | UserCountOutputTypeCountProcessedPaymentsArgs
 }
 
 /**
@@ -1434,8 +2120,29 @@ export type UserCountOutputTypeCountOtpsArgs<ExtArgs extends runtime.Types.Exten
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountHeadedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DepartmentWhereInput
+export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReceivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChatMessageWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountProcessedPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
 }
 
 
@@ -1459,7 +2166,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   otps?: boolean | Prisma.User$otpsArgs<ExtArgs>
   patient?: boolean | Prisma.User$patientArgs<ExtArgs>
   doctor?: boolean | Prisma.User$doctorArgs<ExtArgs>
-  headedDepartments?: boolean | Prisma.User$headedDepartmentsArgs<ExtArgs>
+  departmentHead?: boolean | Prisma.User$departmentHeadArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
+  receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  processedPayments?: boolean | Prisma.User$processedPaymentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1519,7 +2230,11 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   otps?: boolean | Prisma.User$otpsArgs<ExtArgs>
   patient?: boolean | Prisma.User$patientArgs<ExtArgs>
   doctor?: boolean | Prisma.User$doctorArgs<ExtArgs>
-  headedDepartments?: boolean | Prisma.User$headedDepartmentsArgs<ExtArgs>
+  departmentHead?: boolean | Prisma.User$departmentHeadArgs<ExtArgs>
+  sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>
+  receivedMessages?: boolean | Prisma.User$receivedMessagesArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  processedPayments?: boolean | Prisma.User$processedPaymentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1534,7 +2249,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     otps: Prisma.$OTPPayload<ExtArgs>[]
     patient: Prisma.$PatientPayload<ExtArgs> | null
     doctor: Prisma.$DoctorPayload<ExtArgs> | null
-    headedDepartments: Prisma.$DepartmentPayload<ExtArgs>[]
+    departmentHead: Prisma.$DepartmentPayload<ExtArgs> | null
+    sentMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
+    receivedMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    processedPayments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1950,7 +2669,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   otps<T extends Prisma.User$otpsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$otpsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OTPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   patient<T extends Prisma.User$patientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$patientArgs<ExtArgs>>): Prisma.Prisma__PatientClient<runtime.Types.Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   doctor<T extends Prisma.User$doctorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$doctorArgs<ExtArgs>>): Prisma.Prisma__DoctorClient<runtime.Types.Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  headedDepartments<T extends Prisma.User$headedDepartmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$headedDepartmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  departmentHead<T extends Prisma.User$departmentHeadArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$departmentHeadArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receivedMessages<T extends Prisma.User$receivedMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  processedPayments<T extends Prisma.User$processedPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$processedPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2520,9 +3243,9 @@ export type User$doctorArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 /**
- * User.headedDepartments
+ * User.departmentHead
  */
-export type User$headedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$departmentHeadArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Department
    */
@@ -2536,11 +3259,102 @@ export type User$headedDepartmentsArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.DepartmentInclude<ExtArgs> | null
   where?: Prisma.DepartmentWhereInput
-  orderBy?: Prisma.DepartmentOrderByWithRelationInput | Prisma.DepartmentOrderByWithRelationInput[]
-  cursor?: Prisma.DepartmentWhereUniqueInput
+}
+
+/**
+ * User.sentMessages
+ */
+export type User$sentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatMessage
+   */
+  select?: Prisma.ChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatMessage
+   */
+  omit?: Prisma.ChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatMessageInclude<ExtArgs> | null
+  where?: Prisma.ChatMessageWhereInput
+  orderBy?: Prisma.ChatMessageOrderByWithRelationInput | Prisma.ChatMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ChatMessageWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.DepartmentScalarFieldEnum | Prisma.DepartmentScalarFieldEnum[]
+  distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
+}
+
+/**
+ * User.receivedMessages
+ */
+export type User$receivedMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChatMessage
+   */
+  select?: Prisma.ChatMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChatMessage
+   */
+  omit?: Prisma.ChatMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChatMessageInclude<ExtArgs> | null
+  where?: Prisma.ChatMessageWhereInput
+  orderBy?: Prisma.ChatMessageOrderByWithRelationInput | Prisma.ChatMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ChatMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChatMessageScalarFieldEnum | Prisma.ChatMessageScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.processedPayments
+ */
+export type User$processedPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

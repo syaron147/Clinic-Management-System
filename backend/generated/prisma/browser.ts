@@ -23,31 +23,6 @@ export * from './enums.ts';
  */
 export type Appointment = Prisma.AppointmentModel
 /**
- * Model MedicalRecord
- * 
- */
-export type MedicalRecord = Prisma.MedicalRecordModel
-/**
- * Model Prescription
- * 
- */
-export type Prescription = Prisma.PrescriptionModel
-/**
- * Model Report
- * 
- */
-export type Report = Prisma.ReportModel
-/**
- * Model Bill
- * 
- */
-export type Bill = Prisma.BillModel
-/**
- * Model Payment
- * 
- */
-export type Payment = Prisma.PaymentModel
-/**
  * Model RefreshToken
  * 
  */
@@ -68,6 +43,16 @@ export type OTP = Prisma.OTPModel
  */
 export type AuditLog = Prisma.AuditLogModel
 /**
+ * Model Bill
+ * 
+ */
+export type Bill = Prisma.BillModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
+/**
  * Model Department
  * 
  */
@@ -77,6 +62,31 @@ export type Department = Prisma.DepartmentModel
  * 
  */
 export type Doctor = Prisma.DoctorModel
+/**
+ * Model MedicalRecord
+ * 
+ */
+export type MedicalRecord = Prisma.MedicalRecordModel
+/**
+ * Model Prescription
+ * 
+ */
+export type Prescription = Prisma.PrescriptionModel
+/**
+ * Model Report
+ * 
+ */
+export type Report = Prisma.ReportModel
+/**
+ * Model ChatMessage
+ * 
+ */
+export type ChatMessage = Prisma.ChatMessageModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
 /**
  * Model Patient
  * 

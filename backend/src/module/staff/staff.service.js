@@ -1,5 +1,4 @@
 import prisma from '../../config/database.js';
-import { Prisma } from '@prisma/client';
 import { hashPassword } from '../../utils/hash.js';
 import { MESSAGES } from '../../constans/messages.js';
 
@@ -303,7 +302,6 @@ export const deleteStaff = async (staffId, actorId) => {
     ]);
   } catch (err) {
     if (
-      err instanceof Prisma.PrismaClientKnownRequestError &&
       (err.code === 'P2014' || err.code === 'P2003')
     ) {
       throw new Error('Cannot delete staff member because they have related records (appointments, bills, etc.). Deactivate them instead.');

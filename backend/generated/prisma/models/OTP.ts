@@ -20,100 +20,76 @@ export type OTPModel = runtime.Types.Result.DefaultSelection<Prisma.$OTPPayload>
 
 export type AggregateOTP = {
   _count: OTPCountAggregateOutputType | null
-  _avg: OTPAvgAggregateOutputType | null
-  _sum: OTPSumAggregateOutputType | null
   _min: OTPMinAggregateOutputType | null
   _max: OTPMaxAggregateOutputType | null
 }
 
-export type OTPAvgAggregateOutputType = {
-  attempts: number | null
-}
-
-export type OTPSumAggregateOutputType = {
-  attempts: number | null
-}
-
 export type OTPMinAggregateOutputType = {
   id: string | null
-  code: string | null
+  email: string | null
+  otp: string | null
   type: $Enums.OTPType | null
   expiresAt: Date | null
-  verified: boolean | null
-  attempts: number | null
-  userId: string | null
   createdAt: Date | null
-  updatedAt: Date | null
+  isUsed: boolean | null
+  userId: string | null
 }
 
 export type OTPMaxAggregateOutputType = {
   id: string | null
-  code: string | null
+  email: string | null
+  otp: string | null
   type: $Enums.OTPType | null
   expiresAt: Date | null
-  verified: boolean | null
-  attempts: number | null
-  userId: string | null
   createdAt: Date | null
-  updatedAt: Date | null
+  isUsed: boolean | null
+  userId: string | null
 }
 
 export type OTPCountAggregateOutputType = {
   id: number
-  code: number
+  email: number
+  otp: number
   type: number
   expiresAt: number
-  verified: number
-  attempts: number
-  userId: number
   createdAt: number
-  updatedAt: number
+  isUsed: number
+  userId: number
   _all: number
 }
 
 
-export type OTPAvgAggregateInputType = {
-  attempts?: true
-}
-
-export type OTPSumAggregateInputType = {
-  attempts?: true
-}
-
 export type OTPMinAggregateInputType = {
   id?: true
-  code?: true
+  email?: true
+  otp?: true
   type?: true
   expiresAt?: true
-  verified?: true
-  attempts?: true
-  userId?: true
   createdAt?: true
-  updatedAt?: true
+  isUsed?: true
+  userId?: true
 }
 
 export type OTPMaxAggregateInputType = {
   id?: true
-  code?: true
+  email?: true
+  otp?: true
   type?: true
   expiresAt?: true
-  verified?: true
-  attempts?: true
-  userId?: true
   createdAt?: true
-  updatedAt?: true
+  isUsed?: true
+  userId?: true
 }
 
 export type OTPCountAggregateInputType = {
   id?: true
-  code?: true
+  email?: true
+  otp?: true
   type?: true
   expiresAt?: true
-  verified?: true
-  attempts?: true
-  userId?: true
   createdAt?: true
-  updatedAt?: true
+  isUsed?: true
+  userId?: true
   _all?: true
 }
 
@@ -155,18 +131,6 @@ export type OTPAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: OTPAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: OTPSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: OTPMinAggregateInputType
@@ -197,25 +161,20 @@ export type OTPGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   _count?: OTPCountAggregateInputType | true
-  _avg?: OTPAvgAggregateInputType
-  _sum?: OTPSumAggregateInputType
   _min?: OTPMinAggregateInputType
   _max?: OTPMaxAggregateInputType
 }
 
 export type OTPGroupByOutputType = {
   id: string
-  code: string
+  email: string
+  otp: string
   type: $Enums.OTPType
   expiresAt: Date
-  verified: boolean
-  attempts: number
-  userId: string
   createdAt: Date
-  updatedAt: Date
+  isUsed: boolean
+  userId: string | null
   _count: OTPCountAggregateOutputType | null
-  _avg: OTPAvgAggregateOutputType | null
-  _sum: OTPSumAggregateOutputType | null
   _min: OTPMinAggregateOutputType | null
   _max: OTPMaxAggregateOutputType | null
 }
@@ -240,27 +199,25 @@ export type OTPWhereInput = {
   OR?: Prisma.OTPWhereInput[]
   NOT?: Prisma.OTPWhereInput | Prisma.OTPWhereInput[]
   id?: Prisma.StringFilter<"OTP"> | string
-  code?: Prisma.StringFilter<"OTP"> | string
+  email?: Prisma.StringFilter<"OTP"> | string
+  otp?: Prisma.StringFilter<"OTP"> | string
   type?: Prisma.EnumOTPTypeFilter<"OTP"> | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
-  verified?: Prisma.BoolFilter<"OTP"> | boolean
-  attempts?: Prisma.IntFilter<"OTP"> | number
-  userId?: Prisma.StringFilter<"OTP"> | string
   createdAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  isUsed?: Prisma.BoolFilter<"OTP"> | boolean
+  userId?: Prisma.StringNullableFilter<"OTP"> | string | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type OTPOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  otp?: Prisma.SortOrder
   type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
-  verified?: Prisma.SortOrder
-  attempts?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -269,32 +226,28 @@ export type OTPWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.OTPWhereInput | Prisma.OTPWhereInput[]
   OR?: Prisma.OTPWhereInput[]
   NOT?: Prisma.OTPWhereInput | Prisma.OTPWhereInput[]
-  code?: Prisma.StringFilter<"OTP"> | string
+  email?: Prisma.StringFilter<"OTP"> | string
+  otp?: Prisma.StringFilter<"OTP"> | string
   type?: Prisma.EnumOTPTypeFilter<"OTP"> | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
-  verified?: Prisma.BoolFilter<"OTP"> | boolean
-  attempts?: Prisma.IntFilter<"OTP"> | number
-  userId?: Prisma.StringFilter<"OTP"> | string
   createdAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  isUsed?: Prisma.BoolFilter<"OTP"> | boolean
+  userId?: Prisma.StringNullableFilter<"OTP"> | string | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type OTPOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  otp?: Prisma.SortOrder
   type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
-  verified?: Prisma.SortOrder
-  attempts?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OTPCountOrderByAggregateInput
-  _avg?: Prisma.OTPAvgOrderByAggregateInput
   _max?: Prisma.OTPMaxOrderByAggregateInput
   _min?: Prisma.OTPMinOrderByAggregateInput
-  _sum?: Prisma.OTPSumOrderByAggregateInput
 }
 
 export type OTPScalarWhereWithAggregatesInput = {
@@ -302,141 +255,122 @@ export type OTPScalarWhereWithAggregatesInput = {
   OR?: Prisma.OTPScalarWhereWithAggregatesInput[]
   NOT?: Prisma.OTPScalarWhereWithAggregatesInput | Prisma.OTPScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"OTP"> | string
-  code?: Prisma.StringWithAggregatesFilter<"OTP"> | string
+  email?: Prisma.StringWithAggregatesFilter<"OTP"> | string
+  otp?: Prisma.StringWithAggregatesFilter<"OTP"> | string
   type?: Prisma.EnumOTPTypeWithAggregatesFilter<"OTP"> | $Enums.OTPType
   expiresAt?: Prisma.DateTimeWithAggregatesFilter<"OTP"> | Date | string
-  verified?: Prisma.BoolWithAggregatesFilter<"OTP"> | boolean
-  attempts?: Prisma.IntWithAggregatesFilter<"OTP"> | number
-  userId?: Prisma.StringWithAggregatesFilter<"OTP"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OTP"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"OTP"> | Date | string
+  isUsed?: Prisma.BoolWithAggregatesFilter<"OTP"> | boolean
+  userId?: Prisma.StringNullableWithAggregatesFilter<"OTP"> | string | null
 }
 
 export type OTPCreateInput = {
   id?: string
-  code: string
+  email: string
+  otp: string
   type: $Enums.OTPType
   expiresAt: Date | string
-  verified?: boolean
-  attempts?: number
   createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutOtpsInput
+  isUsed?: boolean
+  user?: Prisma.UserCreateNestedOneWithoutOtpsInput
 }
 
 export type OTPUncheckedCreateInput = {
   id?: string
-  code: string
+  email: string
+  otp: string
   type: $Enums.OTPType
   expiresAt: Date | string
-  verified?: boolean
-  attempts?: number
-  userId: string
   createdAt?: Date | string
-  updatedAt?: Date | string
+  isUsed?: boolean
+  userId?: string | null
 }
 
 export type OTPUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  otp?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumOTPTypeFieldUpdateOperationsInput | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutOtpsNestedInput
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  user?: Prisma.UserUpdateOneWithoutOtpsNestedInput
 }
 
 export type OTPUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  otp?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumOTPTypeFieldUpdateOperationsInput | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OTPCreateManyInput = {
   id?: string
-  code: string
+  email: string
+  otp: string
   type: $Enums.OTPType
   expiresAt: Date | string
-  verified?: boolean
-  attempts?: number
-  userId: string
   createdAt?: Date | string
-  updatedAt?: Date | string
+  isUsed?: boolean
+  userId?: string | null
 }
 
 export type OTPUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  otp?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumOTPTypeFieldUpdateOperationsInput | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type OTPUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  otp?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumOTPTypeFieldUpdateOperationsInput | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OTPCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  otp?: Prisma.SortOrder
   type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
-  verified?: Prisma.SortOrder
-  attempts?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-}
-
-export type OTPAvgOrderByAggregateInput = {
-  attempts?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type OTPMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  otp?: Prisma.SortOrder
   type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
-  verified?: Prisma.SortOrder
-  attempts?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type OTPMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  code?: Prisma.SortOrder
+  email?: Prisma.SortOrder
+  otp?: Prisma.SortOrder
   type?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
-  verified?: Prisma.SortOrder
-  attempts?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-}
-
-export type OTPSumOrderByAggregateInput = {
-  attempts?: Prisma.SortOrder
+  isUsed?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type OTPListRelationFilter = {
@@ -497,24 +431,22 @@ export type OTPUncheckedUpdateManyWithoutUserNestedInput = {
 
 export type OTPCreateWithoutUserInput = {
   id?: string
-  code: string
+  email: string
+  otp: string
   type: $Enums.OTPType
   expiresAt: Date | string
-  verified?: boolean
-  attempts?: number
   createdAt?: Date | string
-  updatedAt?: Date | string
+  isUsed?: boolean
 }
 
 export type OTPUncheckedCreateWithoutUserInput = {
   id?: string
-  code: string
+  email: string
+  otp: string
   type: $Enums.OTPType
   expiresAt: Date | string
-  verified?: boolean
-  attempts?: number
   createdAt?: Date | string
-  updatedAt?: Date | string
+  isUsed?: boolean
 }
 
 export type OTPCreateOrConnectWithoutUserInput = {
@@ -548,139 +480,129 @@ export type OTPScalarWhereInput = {
   OR?: Prisma.OTPScalarWhereInput[]
   NOT?: Prisma.OTPScalarWhereInput | Prisma.OTPScalarWhereInput[]
   id?: Prisma.StringFilter<"OTP"> | string
-  code?: Prisma.StringFilter<"OTP"> | string
+  email?: Prisma.StringFilter<"OTP"> | string
+  otp?: Prisma.StringFilter<"OTP"> | string
   type?: Prisma.EnumOTPTypeFilter<"OTP"> | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
-  verified?: Prisma.BoolFilter<"OTP"> | boolean
-  attempts?: Prisma.IntFilter<"OTP"> | number
-  userId?: Prisma.StringFilter<"OTP"> | string
   createdAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"OTP"> | Date | string
+  isUsed?: Prisma.BoolFilter<"OTP"> | boolean
+  userId?: Prisma.StringNullableFilter<"OTP"> | string | null
 }
 
 export type OTPCreateManyUserInput = {
   id?: string
-  code: string
+  email: string
+  otp: string
   type: $Enums.OTPType
   expiresAt: Date | string
-  verified?: boolean
-  attempts?: number
   createdAt?: Date | string
-  updatedAt?: Date | string
+  isUsed?: boolean
 }
 
 export type OTPUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  otp?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumOTPTypeFieldUpdateOperationsInput | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type OTPUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  otp?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumOTPTypeFieldUpdateOperationsInput | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type OTPUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  otp?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumOTPTypeFieldUpdateOperationsInput | $Enums.OTPType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  attempts?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
 
 export type OTPSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  code?: boolean
+  email?: boolean
+  otp?: boolean
   type?: boolean
   expiresAt?: boolean
-  verified?: boolean
-  attempts?: boolean
-  userId?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  isUsed?: boolean
+  userId?: boolean
+  user?: boolean | Prisma.OTP$userArgs<ExtArgs>
 }, ExtArgs["result"]["oTP"]>
 
 export type OTPSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  code?: boolean
+  email?: boolean
+  otp?: boolean
   type?: boolean
   expiresAt?: boolean
-  verified?: boolean
-  attempts?: boolean
-  userId?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  isUsed?: boolean
+  userId?: boolean
+  user?: boolean | Prisma.OTP$userArgs<ExtArgs>
 }, ExtArgs["result"]["oTP"]>
 
 export type OTPSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  code?: boolean
+  email?: boolean
+  otp?: boolean
   type?: boolean
   expiresAt?: boolean
-  verified?: boolean
-  attempts?: boolean
-  userId?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  isUsed?: boolean
+  userId?: boolean
+  user?: boolean | Prisma.OTP$userArgs<ExtArgs>
 }, ExtArgs["result"]["oTP"]>
 
 export type OTPSelectScalar = {
   id?: boolean
-  code?: boolean
+  email?: boolean
+  otp?: boolean
   type?: boolean
   expiresAt?: boolean
-  verified?: boolean
-  attempts?: boolean
-  userId?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
+  isUsed?: boolean
+  userId?: boolean
 }
 
-export type OTPOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "type" | "expiresAt" | "verified" | "attempts" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["oTP"]>
+export type OTPOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "otp" | "type" | "expiresAt" | "createdAt" | "isUsed" | "userId", ExtArgs["result"]["oTP"]>
 export type OTPInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.OTP$userArgs<ExtArgs>
 }
 export type OTPIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.OTP$userArgs<ExtArgs>
 }
 export type OTPIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.OTP$userArgs<ExtArgs>
 }
 
 export type $OTPPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OTP"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    code: string
+    email: string
+    otp: string
     type: $Enums.OTPType
     expiresAt: Date
-    verified: boolean
-    attempts: number
-    userId: string
     createdAt: Date
-    updatedAt: Date
+    isUsed: boolean
+    userId: string | null
   }, ExtArgs["result"]["oTP"]>
   composites: {}
 }
@@ -1075,7 +997,7 @@ readonly fields: OTPFieldRefs;
  */
 export interface Prisma__OTPClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.OTP$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OTP$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1106,14 +1028,13 @@ export interface Prisma__OTPClient<T, Null = never, ExtArgs extends runtime.Type
  */
 export interface OTPFieldRefs {
   readonly id: Prisma.FieldRef<"OTP", 'String'>
-  readonly code: Prisma.FieldRef<"OTP", 'String'>
+  readonly email: Prisma.FieldRef<"OTP", 'String'>
+  readonly otp: Prisma.FieldRef<"OTP", 'String'>
   readonly type: Prisma.FieldRef<"OTP", 'OTPType'>
   readonly expiresAt: Prisma.FieldRef<"OTP", 'DateTime'>
-  readonly verified: Prisma.FieldRef<"OTP", 'Boolean'>
-  readonly attempts: Prisma.FieldRef<"OTP", 'Int'>
-  readonly userId: Prisma.FieldRef<"OTP", 'String'>
   readonly createdAt: Prisma.FieldRef<"OTP", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"OTP", 'DateTime'>
+  readonly isUsed: Prisma.FieldRef<"OTP", 'Boolean'>
+  readonly userId: Prisma.FieldRef<"OTP", 'String'>
 }
     
 
@@ -1512,6 +1433,25 @@ export type OTPDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Limit how many OTPS to delete.
    */
   limit?: number
+}
+
+/**
+ * OTP.user
+ */
+export type OTP$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

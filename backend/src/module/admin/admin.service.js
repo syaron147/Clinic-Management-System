@@ -1,5 +1,5 @@
 import prisma from '../../config/database.js';
-import { Prisma } from '@prisma/client';
+// import { Prisma } from '@prisma/client';
 import { hashPassword } from '../../utils/hash.js';
 import { MESSAGES } from '../../constans/messages.js';
 
@@ -259,10 +259,9 @@ export const deleteUser = async (userId, actorId) => {
       prisma.user.delete({ where: { id: userId } }),
     ]);
   } catch (err) {
-    if (
-      err instanceof Prisma.PrismaClientKnownRequestError &&
-      (err.code === 'P2014' || err.code === 'P2003')
-    ) {
+  if (
+    (err.code === 'P2014' || err.code === 'P2003')
+  ) {
       throw new Error(
         'Cannot delete user because they have related records (appointments, bills, etc.). Deactivate them instead.'
       );
