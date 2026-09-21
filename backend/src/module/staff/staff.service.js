@@ -1,4 +1,5 @@
 import prisma from '../../config/database.js';
+import { Prisma } from '@prisma/client';
 import { hashPassword } from '../../utils/hash.js';
 import { MESSAGES } from '../../constans/messages.js';
 
@@ -28,7 +29,7 @@ export const createStaff = async (payload, actorId) => {
 
   const [existingEmail, existingPhone] = await Promise.all([
     prisma.user.findUnique({ where: { email } }),
-    phone ? prisma.user.findUnique({ where: { phone } }) : Promise.resolve(null),
+    phone ? prisma.user.findFirst({ where: { phone } }) : Promise.resolve(null),
   ]);
 
   if (existingEmail) {
@@ -191,7 +192,7 @@ export const updateStaff = async (staffId, payload, actorId) => {
   }
 
   if (phone && phone !== existing.phone) {
-    const dup = await prisma.user.findUnique({ where: { phone } });
+    const dup = await prisma.user.findFirst({ where: { phone } });
     if (dup && dup.id !== staffId) {
       throw new Error(MESSAGES.PHONE_ALREADY_EXIST || 'Phone number already exists');
     }
@@ -302,6 +303,7 @@ export const deleteStaff = async (staffId, actorId) => {
     ]);
   } catch (err) {
     if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
       (err.code === 'P2014' || err.code === 'P2003')
     ) {
       throw new Error('Cannot delete staff member because they have related records (appointments, bills, etc.). Deactivate them instead.');
