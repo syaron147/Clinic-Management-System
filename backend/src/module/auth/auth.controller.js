@@ -97,6 +97,9 @@ export const login = async (req, res) => {
         if (error.message === MESSAGES.ACCOUNT_DISABLED) {
             return forbiddenResponse(res, error.message);
         }
+        if (error.message === 'EMAIL_NOT_VERIFIED') {
+            return forbiddenResponse(res, 'Please verify your email before signing in.');
+        }
         
         return errorResponse(res, error.message || 'Login failed');
     }
@@ -167,10 +170,12 @@ export const verifyAdminLogin = async (req, res) => {
 // Logout User
 export const logout = async (req, res) => {
     try {
-        const userId = req.user.id;
+        const userId = req.user?.id;
         const accessToken = req.cookies?.accessToken;
 
-        await authService.logoutUser(userId, accessToken);
+        if (userId) {
+            await authService.logoutUser(userId, accessToken);
+        }
         clearTokens(res);
 
         return successResponse(res, null, MESSAGES.USER_LOGGED_OUT);
